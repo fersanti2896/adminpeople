@@ -1,0 +1,43 @@
+
+<h1 mat-dialog-title style="justify-content: center">{{ action }} Persona</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formPerson">
+        <mat-grid-list cols="1" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-form-field class="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput #message formControlName="name" minlength="5" maxlength="50" placeholder="Ej. Fernando" autocomplete="off">
+                    <mat-hint align="start"><strong>Nombre de la Persona</strong> </mat-hint>
+                    <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="lastName" maxlength="50" placeholder="Ej. Nicolás" autocomplete="off">
+                    <mat-hint align="start"><strong>Apellidos de la Persona</strong> </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Edad</mat-label>
+                    <input matInput #age formControlName="age" maxlength="3" placeholder="Ej. 18" autocomplete="off" type="number">
+                    <mat-error *ngIf="formPerson.get('age')?.hasError('invalidAge')">Por favor, ingresa solo números</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Ej. fersa@example.com">
+                    <mat-error *ngIf="formPerson.get('email')?.hasError('email')">Por favor, escribe un correo válido</mat-error>
+                    <mat-error *ngIf="formPerson.get('email')?.hasError('required')">Email es <strong>Requerido</strong></mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="addPerson()" [disabled]="formPerson.invalid">Registrar</button>
+    <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
+</div>
